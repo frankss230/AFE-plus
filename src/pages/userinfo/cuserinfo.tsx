@@ -248,10 +248,22 @@ const Cuserinfo = () => {
                                 value={selected.provinceId}
                                 options={data.provinces}
                                 onChange={(id) => {
-                                    actions.setProvince(id); // อัปเดต State ใน hook [cite: 216]
-                                    const name = getNames.getProvinceName(id); // ดึงชื่อภาษาไทย 
-                                    // สั่ง setValue พร้อม shouldValidate เพื่อให้ Zod ตรวจสอบทันที [cite: 10, 76]
+                                    // 1. อัปเดต State ใน useThaiAddress Hook เพื่อล้าง Dropdown อำเภอ/ตำบล 
+                                    actions.setProvince(id);
+
+                                    // 2. ดึงชื่อจังหวัด (ถ้าเลือกค่าว่าง name จะเป็น "") [cite: 213]
+                                    const name = getNames.getProvinceName(id);
+
+                                    // 3. อัปเดตค่าจังหวัดเข้า Form และสั่ง Validate ทันที 
                                     setValue("users_province", name, { shouldValidate: true });
+
+                                    // 🔥 4. ถ้าเลือกเป็นค่าว่าง (— เลือกจังหวัด —) ให้ล้างค่าที่เหลือใน Form ทั้งหมด
+                                    if (!id) {
+                                        // สั่งล้างค่าและ Validate ทันทีเพื่อให้ขึ้นสีแดงและหายเขียว [cite: 10, 76]
+                                        setValue("users_amphur", "", { shouldValidate: true });
+                                        setValue("users_tubon", "", { shouldValidate: true });
+                                        setValue("users_postcode", "", { shouldValidate: true });
+                                    }
                                 }}
                                 placeholder="เลือกจังหวัด"
                                 isInvalid={!!errors.users_province}
