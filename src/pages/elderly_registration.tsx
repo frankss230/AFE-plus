@@ -331,7 +331,6 @@ const ElderlyRegistration = () => {
                                             id={`gender-${genderId}`}
                                             value={genderId}
                                             checked={watch("gender_id") === genderId}
-                                            disabled={!!dataUser.data}
                                             onChange={(e) => {
                                                 setValue("gender_id", Number(e.target.value), { shouldValidate: true });
                                             }}
@@ -363,7 +362,6 @@ const ElderlyRegistration = () => {
                                             id={`marry-${marryId}`}
                                             value={marryId}
                                             checked={watch("marry_id") === marryId}
-                                            disabled={!!dataUser.data}
                                             onChange={(e) => {
                                                 setValue("marry_id", Number(e.target.value), { shouldValidate: true });
                                             }}
