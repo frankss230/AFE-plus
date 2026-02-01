@@ -320,16 +320,18 @@ const ElderlyRegistration = () => {
                         <Form.Label>เพศ <span className="text-danger">*</span></Form.Label>
                         <div className="d-flex justify-content-around">
                             {
-                                masterGender.length > 0 && masterGender.map((item: any, index: number) => {
+                                masterGender.length > 0 && masterGender.map((item: any) => {
+                                    const genderId = Number(item.gender_id); // แปลงเป็น number
                                     return (
                                         <Form.Check
-                                            key={`${index}-gender`}
+                                            key={`gender-${genderId}`}
                                             label={item.gender_describe}
-                                            type={'radio'}
-                                            value={item.gender_id}
+                                            type="radio"
+                                            id={`gender-${genderId}`}
+                                            value={genderId}
                                             disabled={!!dataUser.data}
                                             {...register("gender_id", { 
-                                                setValueAs: (v) => parseInt(v) 
+                                                valueAsNumber: true  // 🔥 แปลงเป็น number อัตโนมัติ
                                             })}
                                         />
                                     )
@@ -347,17 +349,19 @@ const ElderlyRegistration = () => {
                         <Form.Label>สถานะการสมรส <span className="text-danger">*</span></Form.Label>
                         <div className="px-4">
                             {
-                                masterMarry.length > 0 && masterMarry.map((item: any, index: number) => {
+                                masterMarry.length > 0 && masterMarry.map((item: any) => {
+                                    const marryId = Number(item.marry_id); // แปลงเป็น number
                                     return (
                                         <Form.Check
-                                            key={`${index}-marry`}
+                                            key={`marry-${marryId}`}
                                             className="py-1"
                                             label={item.marry_describe}
-                                            type={'radio'}
-                                            value={item.marry_id}
+                                            type="radio"
+                                            id={`marry-${marryId}`}
+                                            value={marryId}
                                             disabled={!!dataUser.data}
                                             {...register("marry_id", { 
-                                                setValueAs: (v) => parseInt(v) 
+                                                valueAsNumber: true  // 🔥 แปลงเป็น number อัตโนมัติ
                                             })}
                                         />
                                     )
