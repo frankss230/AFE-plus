@@ -28,8 +28,8 @@ interface ReplyNotification {
     resSafezone      : {};
     extendedHelpId   : number;
     locationData : {
-        locat_latitude : number;
-        locat_longitude: number;
+        locat_latitude : string;  // แก้ไข: เป็น string ตาม database schema
+        locat_longitude: string;  // แก้ไข: เป็น string ตาม database schema
     };
 }
 interface ReplyNoti {
@@ -157,7 +157,7 @@ export const replyNotification = async ({
                                         spacing: 'sm',
                                         contents: [
                                             layoutBoxBaseline('ชื่อ-สกุล', `${resUser.users_fname} ${resUser.users_sname}`, 4, 5),
-                                            layoutBoxBaseline('เบอร์โทร', `${resUser.users_tel1} `, 4, 5),
+                                            layoutBoxBaseline('เบอร์โทร', `${resUser.users_tel1}`, 4, 5),
                                         ],
                                     },
                                     {
@@ -179,7 +179,7 @@ export const replyNotification = async ({
                                         spacing: 'sm',
                                         contents: [
                                             layoutBoxBaseline('ชื่อ-สกุล', `${resTakecareperson.takecare_fname} ${resTakecareperson.takecare_sname}`, 4, 5),
-                                            layoutBoxBaseline('เบอร์โทร', `${resTakecareperson.takecare_tel1} `, 4, 5),
+                                            layoutBoxBaseline('เบอร์โทร', `${resTakecareperson.takecare_tel1}`, 4, 5),
                                         ],
                                     },
                                     {
@@ -205,7 +205,7 @@ export const replyNotification = async ({
                                             data: `type=close&takecareId=${resTakecareperson.takecare_id}&extenId=${extendedHelpId}&userLineId=${resUser.users_line_id}`,
                                         },
                                     },
-                                    {
+                                     {
                                         type: 'button',
                                         style: 'primary',
                                         height: 'sm',
@@ -217,7 +217,25 @@ export const replyNotification = async ({
                                             uri: `tel:${resUser.users_tel1}`
                                         },
                                     },
-                                    
+
+                                    {
+                                        type: 'button',
+                                        style: 'primary',
+                                        height: 'sm',
+                                        margin: 'xxl',
+                                        color: '#f10000',
+                                        action: resTakecareperson.takecare_tel1
+                                        ? {
+                                            type: 'uri',
+                                            label: 'โทรหาผู้มีภาวะพึ่งพิง',
+                                            uri: `tel:${resTakecareperson.takecare_tel1}`
+                                        }
+                                        : {
+                                            type: 'message',
+                                            label: 'โทรหาผู้มีภาวะพึ่งพิง',
+                                            text: 'ไม่มีข้อมูลเบอร์โทรศัพท์ของผู้มีภาวะพึ่งพิง'
+                                        }
+                        }                                  
                                 ],
                             },
                         },
