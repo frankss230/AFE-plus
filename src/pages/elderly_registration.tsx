@@ -263,7 +263,7 @@ const ElderlyRegistration = () => {
         <Container>
             <div className={styles.main}>
                 <Image src={'/images/Logo.png'} width={100} height={100} alt="Logo" priority />
-                <h1 className="py-2">ลงทะเบียนผู้สูงอายุ</h1>
+                <h1 className="py-2">ลงทะเบียนผู้มีภาวะพึ่งพิง</h1>
             </div>
             <div className="px-5">
                 <Form noValidate onSubmit={handleSubmit(onSubmit)}>
@@ -530,10 +530,10 @@ const ElderlyRegistration = () => {
 }
 
 export const getServerSideProps: GetServerSideProps = withCommonData({
-    title: 'ลงทะเบียนผู้สูงอายุ',
-    description: 'ลงทะเบียนผู้สูงอายุ',
+    title: 'ลงทะเบียนผู้มีภาวะพึ่งพิง',
+    description: 'ลงทะเบียนผู้มีภาวะพึ่งพิง',
     slug: '',
-    titleBar: 'ลงทะเบียนผู้สูงอายุ'
+    titleBar: 'ลงทะเบียนผู้มีภาวะพึ่งพิง'
 });
 
 export default ElderlyRegistration

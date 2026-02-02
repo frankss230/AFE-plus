@@ -162,7 +162,7 @@ const Puserinfo = () => {
     const onSubmit = async (formData: PuserinfoFormData) => {
         try {
             if(!dataUser.data){
-                setAlert({ show: true, message: 'ไม่พบข้อมูลผู้สูงอายุ' })
+                setAlert({ show: true, message: 'ไม่พบข้อมูลผู้มีภาวะพึ่งพิง' })
                 return;
             }
 
@@ -213,7 +213,7 @@ const Puserinfo = () => {
     return (
         <Container>
             <div className={styles.main}>
-                <h1 className="py-2">ข้อมูลผู้สูงอายุ</h1>
+                <h1 className="py-2">ข้อมูลผู้มีภาวะพึ่งพิง</h1>
             </div>
             <div className="px-5">
                 <Form noValidate onSubmit={handleSubmit(onSubmit)}>
