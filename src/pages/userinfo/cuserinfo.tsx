@@ -207,7 +207,7 @@ const Cuserinfo = () => {
                 <Form noValidate onSubmit={handleSubmit(onPrepareSubmit)}>
                     
                     <InputLabel 
-                        label="ชื่ิอ" 
+                        label="ชื่อ" 
                         id="users_fname" 
                         placeholder="กรอกชื่อ" 
                         {...register("users_fname")}
