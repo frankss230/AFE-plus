@@ -31,7 +31,13 @@ interface UserData {
 
 const Registration = () => {
     const router = useRouter();
-    const [alert, setAlert] = useState({ show: false, message: '' });
+    const [alert, setAlert] = useState({
+        show: false,
+        message: '',
+        showClose: true,
+        autoCloseMs: undefined as number | undefined,
+        messageClassName: undefined as string | undefined
+    });
     const [displayName, setDisplayName] = useState<string>("");
     const [dataUser, setDataUser] = useState<UserData>({ isLogin: true, data: null });
     const [confirmShow, setConfirmShow] = useState(false);
@@ -123,7 +129,13 @@ const Registration = () => {
                     }
                 } catch (error) {
                     setDataUser({ isLogin: false, data: null })
-                    setAlert({ show: true, message: 'ระบบไม่สามารถดึงข้อมูลของท่านได้ กรุณาลองใหม่อีกครั้ง' })
+                    setAlert({ 
+                        show: true, 
+                        message: 'ระบบไม่สามารถดึงข้อมูลของท่านได้ กรุณาลองใหม่อีกครั้ง',
+                        showClose: true,
+                        autoCloseMs: undefined,
+                        messageClassName: undefined
+                    })
                 }
             };
             
@@ -139,7 +151,13 @@ const Registration = () => {
                 setDisplayName(response.data.data?.displayName)
             }
         } catch (error) {
-            setAlert({ show: true, message: 'ระบบไม่สามารถดึงข้อมูล LINE ของท่านได้ กรุณาลองใหม่อีกครั้ง' })
+            setAlert({ 
+                show: true, 
+                message: 'ระบบไม่สามารถดึงข้อมูล LINE ของท่านได้ กรุณาลองใหม่อีกครั้ง',
+                showClose: true,
+                autoCloseMs: undefined,
+                messageClassName: undefined
+            })
         }
     }
 
@@ -180,14 +198,26 @@ const Registration = () => {
             }
         } catch (error) {
             setDataUser({ isLogin: false, data: null })
-            setAlert({ show: true, message: 'ระบบไม่สามารถดึงข้อมูลของท่านได้ กรุณาลองใหม่อีกครั้ง' })
+            setAlert({ 
+                show: true, 
+                message: 'ระบบไม่สามารถดึงข้อมูลของท่านได้ กรุณาลองใหม่อีกครั้ง',
+                showClose: true,
+                autoCloseMs: undefined,
+                messageClassName: undefined
+            })
         }
     }
 
     const onSubmit = async (formData: RegistrationFormData) => {
         try {
             if (!dataUser.data && (!formData.users_passwd || !formData.users_passwd_comfirm)) {
-                setAlert({ show: true, message: 'กรุณากรอกรหัสผ่าน' });
+                setAlert({ 
+                    show: true, 
+                    message: 'กรุณากรอกรหัสผ่าน',
+                    showClose: true,
+                    autoCloseMs: undefined,
+                    messageClassName: undefined
+                });
                 return;
             }
 
@@ -214,10 +244,23 @@ const Registration = () => {
             if (typeof router.query.auToken === 'string') {
                 onGetUserData(router.query.auToken);
             }
-            setAlert({ show: true, message: 'บันทึกข้อมูลสำเร็จ' })
+            
+            setAlert({
+                show: true,
+                message: 'บันทึกข้อมูลแล้ว',
+                showClose: false,
+                autoCloseMs: 1500,
+                messageClassName: 'fs-3 fw-bold text-center'
+            })
 
         } catch (error) {
-            setAlert({ show: true, message: 'ไม่สามารถบันทึกข้อมูลได้' })
+            setAlert({ 
+                show: true, 
+                message: 'ไม่สามารถบันทึกข้อมูลได้',
+                showClose: true,
+                autoCloseMs: undefined,
+                messageClassName: undefined
+            })
         }
     };
 
@@ -455,7 +498,20 @@ const Registration = () => {
 
                 </Form>
             </div>
-            <ModalAlert show={alert.show} message={alert.message} handleClose={() => setAlert({ show: false, message: '' })} />
+            <ModalAlert
+                show={alert.show}
+                message={alert.message}
+                showClose={alert.showClose}
+                autoCloseMs={alert.autoCloseMs}
+                messageClassName={alert.messageClassName}
+                handleClose={() => setAlert({ 
+                    show: false, 
+                    message: '',
+                    showClose: true,
+                    autoCloseMs: undefined,
+                    messageClassName: undefined
+                })}
+            />
             
             {/* 🔥 Modal ยืนยันการบันทึก */}
             <Modal show={confirmShow} centered onHide={onCancelSubmit}>

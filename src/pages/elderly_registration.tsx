@@ -58,7 +58,13 @@ interface UserTakecareData {
 const ElderlyRegistration = () => {
     const router = useRouter();
 
-    const [alert, setAlert] = useState({ show: false, message: '' });
+    const [alert, setAlert] = useState({
+        show: false,
+        message: '',
+        showClose: true,
+        autoCloseMs: undefined as number | undefined,
+        messageClassName: undefined as string | undefined
+    });
     const [displayName, setDisplayName] = useState<string>("");
     const [dataUser, setDataUser] = useState<UserTakecareData>({ isLogin: true, data: null, users_id: null });
     const [masterGender, setMasterGender] = useState<[]>([]);
@@ -163,7 +169,13 @@ const ElderlyRegistration = () => {
                 } catch (error) {
                     console.log("🚀 ~ file: elderly-registration.tsx ~ fetchUserData ~ error:", error)
                     setDataUser({ isLogin: false, data: null, users_id: null })
-                    setAlert({ show: true, message: 'ระบบไม่สามารถดึงข้อมูลของท่านได้ กรุณาลองใหม่อีกครั้ง' })
+                    setAlert({ 
+                        show: true, 
+                        message: 'ระบบไม่สามารถดึงข้อมูลของท่านได้ กรุณาลองใหม่อีกครั้ง',
+                        showClose: true,
+                        autoCloseMs: undefined,
+                        messageClassName: undefined
+                    })
                 }
             };
             
@@ -200,7 +212,13 @@ const ElderlyRegistration = () => {
                 setMasterMarry(response2.data.data)
             }
         } catch (error) {
-            setAlert({ show: true, message: 'ไม่สามารถดึงข้อมูล Master ได้' })
+            setAlert({ 
+                show: true, 
+                message: 'ไม่สามารถดึงข้อมูล Master ได้',
+                showClose: true,
+                autoCloseMs: undefined,
+                messageClassName: undefined
+            })
         }
     }
 
@@ -211,14 +229,26 @@ const ElderlyRegistration = () => {
                 setDisplayName(response.data.data?.displayName)
             }
         } catch (error) {
-            setAlert({ show: true, message: 'ระบบไม่สามารถดึงข้อมูล LINE ของท่านได้ กรุณาลองใหม่อีกครั้ง' })
+            setAlert({ 
+                show: true, 
+                message: 'ระบบไม่สามารถดึงข้อมูล LINE ของท่านได้ กรุณาลองใหม่อีกครั้ง',
+                showClose: true,
+                autoCloseMs: undefined,
+                messageClassName: undefined
+            })
         }
     }
 
     const onSubmit = async (formData: ElderlyRegistrationFormData) => {
         try {
             if(!dataUser.users_id){
-                setAlert({ show: true, message: 'ไม่พบข้อมูลผู้ใช้' })
+                setAlert({ 
+                    show: true, 
+                    message: 'ไม่พบข้อมูลผู้ใช้',
+                    showClose: true,
+                    autoCloseMs: undefined,
+                    messageClassName: undefined
+                })
                 return;
             }
 
@@ -258,10 +288,22 @@ const ElderlyRegistration = () => {
                 }
             }
             
-            setAlert({ show: true, message: 'บันทึกข้อมูลสำเร็จ' })
+            setAlert({
+                show: true,
+                message: 'บันทึกข้อมูลแล้ว',
+                showClose: false,
+                autoCloseMs: 1500,
+                messageClassName: 'fs-3 fw-bold text-center'
+            })
 
         } catch (error) {
-            setAlert({ show: true, message: 'ไม่สามารถบันทึกข้อมูลได้' })
+            setAlert({ 
+                show: true, 
+                message: 'ไม่สามารถบันทึกข้อมูลได้',
+                showClose: true,
+                autoCloseMs: undefined,
+                messageClassName: undefined
+            })
         }
     };
 
@@ -559,7 +601,20 @@ const ElderlyRegistration = () => {
                     
                 </Form>
             </div>
-            <ModalAlert show={alert.show} message={alert.message} handleClose={() => setAlert({ show: false, message: '' })} />
+            <ModalAlert
+                show={alert.show}
+                message={alert.message}
+                showClose={alert.showClose}
+                autoCloseMs={alert.autoCloseMs}
+                messageClassName={alert.messageClassName}
+                handleClose={() => setAlert({ 
+                    show: false, 
+                    message: '',
+                    showClose: true,
+                    autoCloseMs: undefined,
+                    messageClassName: undefined
+                })}
+            />
             
             {/* 🔥 Modal ยืนยันการบันทึก */}
             <Modal show={confirmShow} centered onHide={onCancelSubmit}>
