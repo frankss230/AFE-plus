@@ -11,6 +11,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
 import InputLabel from '@/components/Form/InputLabel'
+// @ts-ignore
 import SelectAddress from '@/components/Form/SelectAddress';
 import ModalAlert from '@/components/Modals/ModalAlert'
 import ButtonState from '@/components/Button/ButtonState';
@@ -294,6 +295,7 @@ const Cuserinfo = () => {
                                 id="users_province"
                                 value={selected.provinceId}
                                 options={data.provinces}
+                                // @ts-ignore
                                 onChange={(id) => {
                                     actions.setProvince(id); 
                                     const name = getNames.getProvinceName(id);
@@ -319,6 +321,7 @@ const Cuserinfo = () => {
                                 id="users_amphur"
                                 value={selected.districtId}
                                 options={data.districts}
+                                // @ts-ignore
                                 onChange={(id) => {
                                     actions.setDistrict(id);
                                     const name = getNames.getDistrictName(id);
@@ -342,6 +345,7 @@ const Cuserinfo = () => {
                                 id="users_tubon"
                                 value={selected.subDistrictId}
                                 options={data.subDistricts}
+                                // @ts-ignore
                                 onChange={(id) => {
                                     actions.setSubDistrict(id);
                                     const name = getNames.getSubDistrictName(id);

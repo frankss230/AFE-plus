@@ -10,6 +10,9 @@ interface ModalAlertProps {
     show: boolean;
     onHide: () => void;
     onClick: () => void;
+    showClose?: boolean;
+    autoCloseMs?: number | undefined;
+    messageClassName?: string;
     title: string;
     children?: React.ReactNode;
 }
